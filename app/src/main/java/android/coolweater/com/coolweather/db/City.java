@@ -9,14 +9,14 @@ import org.litepal.crud.DataSupport;
 public class City extends DataSupport {
     private int id;
     private String cityName;//市名称
-    private String cityCode;//市代号
+    private int cityCode;//市代号
     private int provinceId;//所属省id
 
-    public String getCityCode() {
+    public int getCityCode() {
         return cityCode;
     }
 
-    public void setCityCode(String cityCode) {
+    public void setCityCode(int cityCode) {
         this.cityCode = cityCode;
     }
 
