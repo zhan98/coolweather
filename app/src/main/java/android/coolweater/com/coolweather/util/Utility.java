@@ -3,7 +3,10 @@ package android.coolweater.com.coolweather.util;
 import android.coolweater.com.coolweather.db.City;
 import android.coolweater.com.coolweather.db.County;
 import android.coolweater.com.coolweather.db.Province;
+import android.coolweater.com.coolweather.gson.Weather;
 import android.text.TextUtils;
+
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,6 +15,9 @@ import org.json.JSONObject;
  * Created by Ms.zhan on 2017/12/4.
  */
 
+/*
+* 解析服务器返回的数据
+ */
 public class Utility {
 
     //取出json字符，设置进LitePal数据库
@@ -83,5 +89,21 @@ public class Utility {
             }
         }
         return false;
+    }
+
+
+    /*
+    *将服务器返回的JSON数据解析成Weather实体类
+    * */
+    public static Weather handleWeatherResponse(String response){
+        try {
+            JSONObject jsonObject = new JSONObject(response);//将天气数据主体内容提取出来
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");//提取"HeWeather"数据
+            String weatherContent = jsonArray.getJSONObject(0).toString();//将数组转化为字符串
+            return new Gson().fromJson(weatherContent,Weather.class);//转换为Weather对象
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

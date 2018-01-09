@@ -1,6 +1,7 @@
 package android.coolweater.com.coolweather;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.coolweater.com.coolweather.db.City;
 import android.coolweater.com.coolweather.db.County;
 import android.coolweater.com.coolweather.db.Province;
@@ -34,6 +35,9 @@ import okhttp3.Response;
  * Created by Ms.zhan on 2017/12/5.
  */
 
+/*
+*
+* */
 public class ChooseAreaFragment extends Fragment {
 
     public static final int LEVEL_PROVINCE = 0;
@@ -95,6 +99,14 @@ public class ChooseAreaFragment extends Fragment {
                 }else if(currentLevel == LEVEL_CITY){  //当前级别为市
                     selectCity = cityList.get(position);//定位选中的市
                     queryCounty();//查询选中市下的县
+                }else if(currentLevel == LEVEL_COUNTY){ //当前级别为县
+                    selectCounty = countyList.get(position);//定位选中的县
+                    String weatherId = selectCounty.getWeatherId();//读取选中县的weatherId
+                    //Activity间传递值
+                    Intent intent = new Intent(getActivity(),WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    //getActivity().finish();
                 }
             }
         });
@@ -110,6 +122,7 @@ public class ChooseAreaFragment extends Fragment {
                 }
             }
         });
+
 
         //初始显示列表级别为省
         queryProvinces();
