@@ -101,12 +101,20 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounty();//查询选中市下的县
                 }else if(currentLevel == LEVEL_COUNTY){ //当前级别为县
                     selectCounty = countyList.get(position);//定位选中的县
-                    String weatherId = selectCounty.getWeatherId();//读取选中县的weatherId
-                    //Activity间传递值
-                    Intent intent = new Intent(getActivity(),WeatherActivity.class);
-                    intent.putExtra("weather_id",weatherId);
-                    startActivity(intent);
-                    //getActivity().finish();
+                    String weatherId = selectCounty.getWeatherId();//读取选中县的weatherId0
+                    //判断碎片在哪个活动中
+                    if(getActivity() instanceof MainActivity) {
+                        //Activity间传递值
+                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                        intent.putExtra("weather_id", weatherId);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }else if(getActivity() instanceof WeatherActivity){
+                        WeatherActivity activity = (WeatherActivity)getActivity();
+                        activity.drawerLayout.closeDrawers();//关闭滑动菜单
+                        activity.swipeRefresh.setRefreshing(true);//自动刷新
+                        activity.requestWeather(weatherId);//请求获取天气信息
+                    }
                 }
             }
         });

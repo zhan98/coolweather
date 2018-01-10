@@ -6,10 +6,10 @@
 
     <ImageButton
         android:id="@+id/weather_back"
-        android:src="@drawable/left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"/>
+        android:src="@drawable/home"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_centerVertical="true" />
     <!--居中显示城市名-->
     <TextView
         android:id="@+id/title_city"

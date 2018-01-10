@@ -13,15 +13,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //SharedPreferences缓存数据判断
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 //        SharedPreferences.Editor editor = prefs.edit();
 //        editor.putString("weather",null);
 //        editor.apply();
         //已经请求过天气数据了，那么不用再次选择城市，直接跳转WeatherActivity即可
-//        if(prefs.getString("weather",null) != null){
-//            Intent intent = new Intent(this,WeatherActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        if(prefs.getString("weather",null) != null){
+            Intent intent = new Intent(this,WeatherActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
